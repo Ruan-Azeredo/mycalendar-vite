@@ -49,7 +49,6 @@ const ModalTag = (params : {item: Tag | undefined, type: keyof TypeInterface, hi
                         <label className="label" htmlFor="">Nome</label>
                         <input type="text" value={name} onChange={(e) => {
                             setName(e.target.value)
-                            console.log(name)
                         }} placeholder="Nome" className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="flex flex-col">

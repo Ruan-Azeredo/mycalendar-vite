@@ -52,7 +52,6 @@ const ModalEvent = (params : {item: Event | undefined, type: keyof TypeInterface
                         <label className="label" htmlFor="">Nome</label>
                         <input type="text" value={name} onChange={(e) => {
                             setName(e.target.value)
-                            console.log(name)
                         }} placeholder="Nome" className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="flex gap-2">

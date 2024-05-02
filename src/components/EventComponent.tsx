@@ -72,6 +72,7 @@ const EventComponent = ({item, tags} : EventInterface) => {
     }
     useEffect(() =>  {
         getColor(item.tag_id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item, tags])
 
     return (

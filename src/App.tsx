@@ -18,11 +18,9 @@ function App() {
   function TagColorById(tag_id: string | undefined) : keyof EventsTheme{
     if(!tag_id) return 'default'
     const filteredTag = tags.filter(item => item.id == tag_id)
-    console.log(filteredTag)
     return filteredTag[0].color
   }
 
-  console.log(events, tags)
   return (
     <>
     <div className="h-screen w-screen p-4">

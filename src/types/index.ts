@@ -48,18 +48,29 @@ export interface UpdateTagInterface{
 }
 
 export interface GetEventsParams {
-    user_id: string
+    user_id?: string
+    name?: string
+    tagId?: string
+    startTime?: number
+    finishTime?: number
+}
+
+export interface GetTagsParams {
+    user_id?: string
+    name?: string
+    color?: keyof EventsTheme
 }
 
 export interface ManagerContextInterface {
     getEvents: (params: GetEventsParams) => void
-    getTags: (params: GetEventsParams) => void
+    getTags: (params: GetTagsParams) => void
     updateEvent: (params: UpdateEventInterface) => void
     createEvent: (params: UpdateEventInterface) => void
     deleteEvent: (params: UpdateEventInterface) => void
     updateTag: (params: UpdateTagInterface) => void
     createTag: (params: UpdateTagInterface) => void
     deleteTag: (params: UpdateTagInterface) => void
+    configFilter: (params: GetEventsParams) => void
     events: [Event]
     tags: [Tag]
     showToast: boolean
