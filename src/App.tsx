@@ -6,9 +6,9 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import ptbrLocale from '@fullcalendar/core/locales/pt-br';
 import { eventsTheme } from "./types/colors"
-import ModalEvent from "./components/ModalEvent"
 import { formatDateToCalendar } from "./utils/timeManager"
 import EventComponent from "./components/EventComponent"
+import Header from "./components/Header"
 
 function App() {
 
@@ -22,54 +22,11 @@ function App() {
     return filteredTag[0].color
   }
 
-/* 
-  const localizer = momentLocalizer(moment)
-
-  const MyCalendar = () => (
-    <div className="myCustomHeight">
-      <Calendar
-        localizer={localizer}
-        //events={myEventsList}
-        startAccessor="start"
-        endAccessor="end"
-      />
-    </div>
-  )
-    
-
- */
   console.log(events, tags)
   return (
     <>
     <div className="h-screen w-screen p-4">
-      <div className="h-14 flex">
-        <h1 className="text-xl p-2"><span>Olá, </span><span className="font-bold"> Ruan</span></h1>
-        <label className="input input-bordered flex items-center gap-2 ml-auto">
-          <input type="text" className="grow" placeholder="Procurar" />
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-        </label>
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn mx-1">Selcionar Tags</div>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-            {tags?.map(item => (
-              <li><input type="checkbox" defaultChecked className="checkbox bg-white" />{item.name}</li>
-            ))}
-            <li><input type="checkbox" defaultChecked className="checkbox bg-white" /></li>
-          </ul>
-        </div>
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn mx-1">Criar</div>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-            <li><ModalEvent item={undefined} type="create"/></li>
-            <li></li>
-          </ul>
-        </div>
-        <div className="join mr-4">
-          <input className="join-item btn" type="radio" name="options" aria-label="Mes" />
-          <input className="join-item btn" type="radio" name="options" aria-label="Semana" />
-          <input className="join-item btn" type="radio" name="options" aria-label="Dia" />
-        </div>
-      </div>
+      <Header/>
       <div className="flex">
         <div className="w-1/3">
           <div className="bg-neutral rounded-md p-2">
