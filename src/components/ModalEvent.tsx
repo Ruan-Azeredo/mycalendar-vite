@@ -1,14 +1,8 @@
 import { PencilSquareIcon } from "@heroicons/react/16/solid"
-import { Event, ManagerContextInterface } from "../types/index"
+import { Event, ManagerContextInterface, TypeInterface } from "../types/index"
 import { useContext, useState } from "react"
 import { convertDateTimeToEpoch, convertEpochToDateTime } from "../utils/timeManager"
 import { ManagerContext } from "../contexts/manager"
-
-interface TypeInterface{
-    create: string
-    edit: string
-    delete: string
-}
 
 const ModalEvent = (params : {item: Event | undefined, type: keyof TypeInterface}) => {
 
