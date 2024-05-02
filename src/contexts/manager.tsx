@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
-import { GetEventsParams, UpdateEventInterface, UpdateTagInterface } from "../types";
+import { GetEventsParams, GetTagsParams, UpdateEventInterface, UpdateTagInterface } from "../types";
 
 export const ManagerContext = createContext<unknown>(undefined)
 
@@ -11,20 +11,49 @@ export function ManagerProvider({children}: PropsWithChildren<object>){
     const [showToast, setShowToast] = useState(false)
     const [toastMessage, setToastMessage] = useState({message: '', status: 200})
 
+    const [filterParams, setFilterParams] = useState<GetEventsParams>({
+        user_id: 'f7c31ec4-f64f-44cc-b82a-f33c89d1a556',
+        name: undefined,
+        tagId: undefined,
+        startTime: undefined,
+        finishTime: undefined
+    })
+
     const instance = axios.create({
         baseURL: 'http://localhost:3001/'
     })
 
-    const getEvents = async ({user_id}: GetEventsParams) => {
+    const configFilter = ({name, tagId, startTime, finishTime} : GetEventsParams) => {
+        const newFilter = filterParams
+        if(name != undefined){
+            if(name.length >= 1){
+                newFilter.name =  name
+            } else{
+                newFilter.name = undefined
+            }
+        }
+        if(tagId){
+            newFilter.tagId = tagId
+        }
+        if(startTime != undefined){
+            newFilter.startTime = startTime
+        }
+        if(finishTime != undefined){
+            newFilter.finishTime = finishTime
+        }
+        setFilterParams(newFilter)
+
+        getEvents(newFilter)
+    }
+
+    const getEvents = async (filterParams : GetEventsParams) => {
         
         await instance.get('/event/filteredevents', {
-            params: {
-                user_id: user_id
-            }
+            params: filterParams
         }).then(resp => setEvents(resp.data.events))
     }
 
-    const getTags = async ({user_id}: GetEventsParams) => {
+    const getTags = async ({user_id}: GetTagsParams) => {
         
         await instance.get('/tag', {
             params: {
@@ -34,16 +63,16 @@ export function ManagerProvider({children}: PropsWithChildren<object>){
     }
 
     useEffect(() => {
-        getEvents({user_id: 'f7c31ec4-f64f-44cc-b82a-f33c89d1a556'})
-        getTags({user_id: 'f7c31ec4-f64f-44cc-b82a-f33c89d1a556'})
+        getEvents(filterParams)
+        getTags(filterParams)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const succefulRequest = (resp : AxiosResponse) => {
         setToastMessage({message: resp.data.message, status: resp.status})
-        console.log(resp)
         setShowToast(true)
-        getEvents({user_id: 'f7c31ec4-f64f-44cc-b82a-f33c89d1a556'})
-        getTags({user_id: 'f7c31ec4-f64f-44cc-b82a-f33c89d1a556'})
+        getEvents(filterParams)
+        getTags(filterParams)
         setTimeout(() => {
             setShowToast(false)
         }, 4000)
@@ -83,6 +112,7 @@ export function ManagerProvider({children}: PropsWithChildren<object>){
             updateTag,
             createTag,
             deleteTag,
+            configFilter,
             events,
             tags,
             showToast,
