@@ -1,8 +1,8 @@
 export const eventsTheme = {
-    "default" : "#fff",
-    "color1" : "#042940",
-    "color2" : "#005C53",
-    "color3" : "#9FC131",
-    "color4" : "#DBF227",
-    "color5" : "#D6D58E"
+    "default" : "#B4BEC9",
+    "color1" : "#348888",
+    "color2" : "#22BABB",
+    "color3" : "#9EF8EE",
+    "color4" : "#FA7F08",
+    "color5" : "#F24405"
 }
