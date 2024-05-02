@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
-import { GetEventsParams, UpdateEventInterface } from "../types";
+import { GetEventsParams, UpdateEventInterface, UpdateTagInterface } from "../types";
 
 export const ManagerContext = createContext<unknown>(undefined)
 
@@ -43,6 +43,7 @@ export function ManagerProvider({children}: PropsWithChildren<object>){
         console.log(resp)
         setShowToast(true)
         getEvents({user_id: 'f7c31ec4-f64f-44cc-b82a-f33c89d1a556'})
+        getTags({user_id: 'f7c31ec4-f64f-44cc-b82a-f33c89d1a556'})
         setTimeout(() => {
             setShowToast(false)
         }, 4000)
@@ -60,6 +61,18 @@ export function ManagerProvider({children}: PropsWithChildren<object>){
         await instance.delete(`/event/${newData.id}`).then((resp) => succefulRequest(resp)).catch((resp) => succefulRequest(resp.response))
     }
 
+    const updateTag = async (newData : UpdateTagInterface) => {
+        await instance.put(`/tag/${newData.id}`, newData).then((resp) => succefulRequest(resp)).catch((resp) => succefulRequest(resp.response))
+    }
+
+    const createTag = async (newData : UpdateTagInterface) => {
+        await instance.post('/tag', newData).then((resp) => succefulRequest(resp)).catch((resp) => succefulRequest(resp.response))
+    }
+
+    const deleteTag = async (newData : UpdateTagInterface) => {
+        await instance.delete(`/tag/${newData.id}`).then((resp) => succefulRequest(resp)).catch((resp) => succefulRequest(resp.response))
+    }
+
     return (
         <ManagerContext.Provider value={{
             getEvents,
@@ -67,6 +80,9 @@ export function ManagerProvider({children}: PropsWithChildren<object>){
             updateEvent,
             createEvent,
             deleteEvent,
+            updateTag,
+            createTag,
+            deleteTag,
             events,
             tags,
             showToast,

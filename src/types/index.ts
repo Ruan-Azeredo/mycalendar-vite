@@ -13,7 +13,7 @@ export interface Event{
 
 export interface UpdateEventInterface{
     id?: string
-    tag_id?: string
+    tag_id?: string | null
     name?: string
     description?: string
     done?: boolean
@@ -39,6 +39,14 @@ export interface Tag {
     updated_at?: Date
 }
 
+export interface UpdateTagInterface{
+    id?: string
+    name?: string
+    color?: keyof EventsTheme
+    created_at?: Date
+    updated_at?: Date
+}
+
 export interface GetEventsParams {
     user_id: string
 }
@@ -49,8 +57,17 @@ export interface ManagerContextInterface {
     updateEvent: (params: UpdateEventInterface) => void
     createEvent: (params: UpdateEventInterface) => void
     deleteEvent: (params: UpdateEventInterface) => void
+    updateTag: (params: UpdateTagInterface) => void
+    createTag: (params: UpdateTagInterface) => void
+    deleteTag: (params: UpdateTagInterface) => void
     events: [Event]
     tags: [Tag]
     showToast: boolean
     toastMessage: {message: string, status: number}
+}
+
+export interface TypeInterface{
+    create: string
+    edit: string
+    delete: string
 }
